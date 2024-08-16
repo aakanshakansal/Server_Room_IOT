@@ -1509,9 +1509,16 @@ class LightPawn extends PawnBehavior {
     // };
 
     const checkTemperatureAndUpdateColor = (object) => {
-      const temperature = generateDynamicTemperature();
+      const dynamicData = generateDynamicData(object);
 
-      if (temperature > params.temperatureThreshold) {
+      // Get the highest CPU temperature
+      const latestCpuTemperature = Math.max(
+        ...dynamicData.cpuData.map((data) => data[1])
+      );
+
+      console.log(latestCpuTemperature);
+
+      if (latestCpuTemperature > params.temperatureThreshold) {
         object.traverse((child) => {
           if (child.isMesh) {
             child.material.color.set(0xff0000); // Red color
@@ -1520,7 +1527,7 @@ class LightPawn extends PawnBehavior {
 
         const message = `The temperature of ${
           object.name || "this object"
-        } is high: ${temperature}°C.`;
+        } is high: ${latestCpuTemperature}°C.`;
 
         if ("speechSynthesis" in window) {
           const speech = new SpeechSynthesisUtterance(message);
@@ -1528,7 +1535,6 @@ class LightPawn extends PawnBehavior {
           speech.pitch = 1;
           speech.volume = 1;
           speechSynthesis.speak(speech);
-          // console.log(message);
         } else {
           console.log("Speech synthesis is not supported in this browser.");
         }
@@ -1988,41 +1994,41 @@ class LightPawn extends PawnBehavior {
           window.gui = new dat.GUI();
           const rackImage = document.getElementById("rackImage");
 
-          var obj = {
-            traverseAndColor: false, // Initial state of the checkbox
-          };
+          // var obj = {
+          //   traverseAndColor: false, // Initial state of the checkbox
+          // };
 
-          window.gui
-            .add(obj, "traverseAndColor")
-            .name("Server wise Temp")
-            .onChange(function (value) {
-              if (value) {
-                for (let i = 0; i <= 70; i++) {
-                  if (i >= 5 && i <= 15) {
-                    continue;
-                  }
+          // window.gui
+          //   .add(obj, "traverseAndColor")
+          //   .name("Server wise Temp")
+          //   .onChange(function (value) {
+          //     if (value) {
+          //       for (let i = 0; i <= 70; i++) {
+          //         if (i >= 5 && i <= 15) {
+          //           continue;
+          //         }
 
-                  // Reset colorIndex for each row
-                  colorIndex = i - 1;
-                  for (let j = 1; j <= 12; j++) {
-                    traverseAndColor(model.children[i].children[j], false);
-                  }
-                }
-                // Show the image when checkbox is checked
-                rackImage.style.display = "block";
-              } else {
-                for (let i = 0; i <= 70; i++) {
-                  if (i >= 5 && i <= 15) {
-                    continue;
-                  }
-                  for (let j = 1; j <= 12; j++) {
-                    traverseAndColor(model.children[i].children[j], true);
-                  }
-                }
+          //         // Reset colorIndex for each row
+          //         colorIndex = i - 1;
+          //         for (let j = 1; j <= 12; j++) {
+          //           traverseAndColor(model.children[i].children[j], false);
+          //         }
+          //       }
+          //       // Show the image when checkbox is checked
+          //       rackImage.style.display = "block";
+          //     } else {
+          //       for (let i = 0; i <= 70; i++) {
+          //         if (i >= 5 && i <= 15) {
+          //           continue;
+          //         }
+          //         for (let j = 1; j <= 12; j++) {
+          //           traverseAndColor(model.children[i].children[j], true);
+          //         }
+          //       }
 
-                rackImage.style.display = "none";
-              }
-            });
+          //       rackImage.style.display = "none";
+          //     }
+          //   });
           var obj1 = {
             traverseAndColor1: false, // Initial state of the checkbox
           };
@@ -2182,7 +2188,7 @@ class LightPawn extends PawnBehavior {
             .name("Temperature Threshold (°C)");
           window.gui
             .add(params, "checkTemperature")
-            .name("Thermalview")
+            .name("Temp(CPU)")
             .onChange((value) => {
               if (value) {
                 // Start checking temperature if checkbox is ticked
