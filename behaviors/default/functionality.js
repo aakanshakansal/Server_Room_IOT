@@ -10,6 +10,8 @@ class LightPawn extends PawnBehavior {
     let group = this.shape;
     let THREE = Microverse.THREE;
     let model;
+    let params;
+    let temperatureInterval;
 
     if (this.actor._cardData.toneMappingExposure !== undefined) {
       trm.renderer.toneMappingExposure =
@@ -1425,51 +1427,143 @@ class LightPawn extends PawnBehavior {
       const percentage = minPercentage + Math.random() * range;
       return Math.round(percentage);
     };
+    // const checkTemperatureAndUpdateColor = (object) => {
+    //   const temperature = generateDynamicTemperature();
+
+    //   // console.log(
+    //   //   `Temperature for ${object.name || "this object"}: ${temperature}°C`
+    //   // );
+
+    //   if (temperature > 10) {
+    //     // Adjusted the temperature threshold to 30°C
+    //     // Change object color to red
+    //     object.traverse((child) => {
+    //       if (child.isMesh) {
+    //         child.material.color.set(0xff0000); // Red color
+    //       }
+    //     });
+
+    //     // Announce the temperature is high
+    //     const message = `The temperature of ${
+    //       object.name || "this object"
+    //     } is high: ${temperature}°C.`;
+
+    //     // Check if the browser supports speech synthesis
+    //     if ("speechSynthesis" in window) {
+    //       const speech = new SpeechSynthesisUtterance(message);
+
+    //       // Set voice parameters if necessary
+    //       speech.rate = 1; // Speed of the speech
+    //       speech.pitch = 1; // Pitch of the voice
+    //       speech.volume = 1; // Volume of the speech
+
+    //       speechSynthesis.speak(speech);
+
+    //       console.log(message);
+    //     } else {
+    //       console.log("Speech synthesis is not supported in this browser.");
+    //     }
+    //   } else {
+    //     // Reset object color to its original
+    //     object.traverse((child) => {
+    //       if (child.isMesh) {
+    //         child.material.color.set(0xffffff); // Original color (white)
+    //       }
+    //     });
+    //   }
+    // };
+
+    /// updated for gui
+
+    // const checkTemperatureAndUpdateColor = (object) => {
+    //   const temperature = generateDynamicTemperature();
+
+    //   if (temperature > params.temperatureThreshold) {
+    //     object.traverse((child) => {
+    //       if (child.isMesh) {
+    //         child.material.color.set(0xff0000); // Red color
+    //       }
+    //     });
+
+    //     const message = `The temperature of ${
+    //       object.name || "this object"
+    //     } is high: ${temperature}°C.`;
+
+    //     if ("speechSynthesis" in window) {
+    //       const speech = new SpeechSynthesisUtterance(message);
+    //       speech.rate = 1;
+    //       speech.pitch = 1;
+    //       speech.volume = 1;
+    //       speechSynthesis.speak(speech);
+    //       console.log(message);
+    //     } else {
+    //       console.log("Speech synthesis is not supported in this browser.");
+    //     }
+    //   } else {
+    //     object.traverse((child) => {
+    //       if (child.isMesh) {
+    //         child.material.color.set(0xffffff); // Original color (white)
+    //       }
+    //     });
+    //   }
+    // };
+
     const checkTemperatureAndUpdateColor = (object) => {
       const temperature = generateDynamicTemperature();
 
-      // console.log(
-      //   `Temperature for ${object.name || "this object"}: ${temperature}°C`
-      // );
-
-      if (temperature > 10) {
-        // Adjusted the temperature threshold to 30°C
-        // Change object color to red
+      if (temperature > params.temperatureThreshold) {
         object.traverse((child) => {
           if (child.isMesh) {
             child.material.color.set(0xff0000); // Red color
           }
         });
 
-        // Announce the temperature is high
         const message = `The temperature of ${
           object.name || "this object"
         } is high: ${temperature}°C.`;
 
-        // Check if the browser supports speech synthesis
         if ("speechSynthesis" in window) {
           const speech = new SpeechSynthesisUtterance(message);
-
-          // Set voice parameters if necessary
-          speech.rate = 1; // Speed of the speech
-          speech.pitch = 1; // Pitch of the voice
-          speech.volume = 1; // Volume of the speech
-
+          speech.rate = 1;
+          speech.pitch = 1;
+          speech.volume = 1;
           speechSynthesis.speak(speech);
-
-          console.log(message);
+          // console.log(message);
         } else {
           console.log("Speech synthesis is not supported in this browser.");
         }
-      } else {
-        // Reset object color to its original
-        object.traverse((child) => {
-          if (child.isMesh) {
-            child.material.color.set(0xffffff); // Original color (white)
-          }
-        });
       }
     };
+
+    // Function to reset object color to its original
+    const resetObjectColor = (object) => {
+      object.traverse((child) => {
+        if (child.isMesh) {
+          child.material.color.set(child.userData.originalColor || 0xffffff); // Reset to original color
+        }
+      });
+    };
+
+    // Save original color for each mesh
+    allowedObjects.forEach((object) => {
+      object.traverse((child) => {
+        if (child.isMesh) {
+          const savedColor = localStorage.getItem(
+            `originalColor-${child.uuid}`
+          );
+          if (savedColor) {
+            child.material.color.setHex(parseInt(savedColor, 16)); // Restore original color from localStorage
+          } else {
+            const originalColor = child.material.color.getHex();
+            localStorage.setItem(
+              `originalColor-${child.uuid}`,
+              originalColor.toString(16)
+            ); // Store original color in localStorage
+            child.userData.originalColor = originalColor;
+          }
+        }
+      });
+    });
 
     // const checkTemperatureAndUpdateColor = (object) => {
     //   const temperature = generateDynamicTemperature();
@@ -1571,11 +1665,19 @@ class LightPawn extends PawnBehavior {
               allowedObjects.add(child);
             }
           });
-          setInterval(() => {
-            allowedObjects.forEach((object) => {
-              checkTemperatureAndUpdateColor(object);
-            });
-          }, 5000);
+          // setInterval(() => {
+          //   allowedObjects.forEach((object) => {
+          //     checkTemperatureAndUpdateColor(object);
+          //   });
+          // }, 5000);
+
+          // setInterval(() => {
+          //   if (params.checkTemperature) {
+          //     allowedObjects.forEach((object) => {
+          //       checkTemperatureAndUpdateColor(object);
+          //     });
+          //   }
+          // }, 5000);
 
           resolve(model);
         },
@@ -1885,6 +1987,7 @@ class LightPawn extends PawnBehavior {
         if (!window.gui) {
           window.gui = new dat.GUI();
           const rackImage = document.getElementById("rackImage");
+
           var obj = {
             traverseAndColor: false, // Initial state of the checkbox
           };
@@ -2069,7 +2172,45 @@ class LightPawn extends PawnBehavior {
                 temperatureSimulations = []; // Clear the array
               }
             });
+          params = {
+            temperatureThreshold: 10, // Default temperature threshold
+            checkTemperature: false, // Initially unchecked
+          };
+
+          window.gui
+            .add(params, "temperatureThreshold", 0, 100)
+            .name("Temperature Threshold (°C)");
+          window.gui
+            .add(params, "checkTemperature")
+            .name("Thermalview")
+            .onChange((value) => {
+              if (value) {
+                // Start checking temperature if checkbox is ticked
+                temperatureInterval = setInterval(() => {
+                  allowedObjects.forEach((object) => {
+                    checkTemperatureAndUpdateColor(object);
+                  });
+                }, 5000);
+              } else {
+                // Stop checking temperature if checkbox is unticked
+                clearInterval(temperatureInterval);
+
+                // Reset object color to its original color when the checkbox is unticked
+                allowedObjects.forEach((object) => {
+                  resetObjectColor(object);
+                });
+              }
+            });
         }
+        // params = {
+        //   temperatureThreshold: 10, // Default temperature threshold
+        //   checkTemperature: true, // Enable/disable temperature checking
+        // };
+
+        // window.gui
+        //   .add(params, "temperatureThreshold", 0, 100)
+        //   .name("Temperature Threshold (°C)");
+        // window.gui.add(params, "checkTemperature").name("Check Temperature");
       })
       .catch((error) => {
         console.error("Error loading GLTF model:", error);

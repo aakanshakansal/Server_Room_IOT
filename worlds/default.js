@@ -6,7 +6,12 @@ export function init(Constants) {
   Constants.AvatarNames = ["newwhite"];
 
   Constants.UserBehaviorDirectory = "behaviors/default";
-  Constants.UserBehaviorModules = ["lights.js", "functionality.js", "names.js"];
+  Constants.UserBehaviorModules = [
+    "lights.js",
+    "functionality.js",
+    "names.js",
+    "fun1.js",
+  ];
   const avatarModels = [
     "3kDNEN2jKhiPYcYAfItpXCcaahDmYM54K-kP6mKb_x8AAx8fGxhRREQNAgcOGEUeGEUIGQQaHg4fRQIERB5ELA89CRIHIhgqADoIKTMPWCwTCh0SHD4gPDIyWUQCBEUIGQQaHg4fRQYCCBkEHQ4ZGA5EEgMHOzsPIC46GCoaMxsfOjwhBCIuWxM8XzwZHjpfND8JIw4cBQ8oXi8lOkQPCh8KRD0aDSQSEjkvICQ5BQM6Xi1GHhk9OglGOAcDBw0CHAEYD1wkKR0PITNGDBg",
     "3qPM9OnJ8B8G-bx-DZtT_uk55iJ-4seqH4D_N7XJcmxMGQUFAQJLXl4XGB0UAl8EAl8SAx4ABBQFXxgeXgReNhUnEwgdOAIwGiASMykVQjYJEAcIBiQ6JigoQ14YHl8SAx4ABBQFXxwYEgMeBxQDAhReCBkdISEVOjQgAjAAKQEFICY7Hjg0QQkmRSYDBCBFLiUTORQGHxUyRDU_IF4VEAUQXjwFBSNHOj4rAgIbNz8COSEnFTUFCD4gJD4gKTIkRQZEGi42CRQAKDk8MAY",
@@ -58,7 +63,7 @@ export function init(Constants) {
         name: "light",
         layers: ["light"],
         type: "lighting",
-        behaviorModules: ["Light", "Model2"],
+        behaviorModules: ["Light", "Model2", "FUN"],
         fileName: "/sky/hamburg_canal_4k.exr",
         dataLocation: "./assets/sky/hamburg_canal_4k.exr",
         dataType: "exr",
