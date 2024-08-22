@@ -64,7 +64,7 @@ export function init(Constants) {
         name: "light",
         layers: ["light"],
         type: "lighting",
-        behaviorModules: ["Light", "Model2", "FUN2", "FUN"],
+        behaviorModules: ["Light", "Model2", "FUN"],
         fileName: "/sky/hamburg_canal_4k.exr",
         dataLocation: "./assets/sky/hamburg_canal_4k.exr",
         dataType: "exr",
