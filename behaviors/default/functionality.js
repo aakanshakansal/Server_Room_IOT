@@ -1698,7 +1698,6 @@ class LightPawn extends PawnBehavior {
 
           model.children.forEach((child, index) => {
             if ((index >= 0 && index <= 4) || (index >= 16 && index <= 70)) {
-              allowedObjects.add(child);
               child.children.forEach((subchild, subIndex) => {
                 if (subIndex >= 2 && subIndex <= 13) {
                   allowedObjects.add(subchild);
@@ -2242,7 +2241,7 @@ class LightPawn extends PawnBehavior {
                   allowedObjects.forEach((object) => {
                     checkTemperatureAndUpdateColor(object);
                   });
-                }, 5000);
+                }, 15000);
               } else {
                 // Stop checking temperature if checkbox is unticked
                 clearInterval(temperatureInterval);
