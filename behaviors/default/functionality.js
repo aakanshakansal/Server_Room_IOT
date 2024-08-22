@@ -1508,36 +1508,82 @@ class LightPawn extends PawnBehavior {
     //   }
     // };
 
+    // const checkTemperatureAndUpdateColor = (object) => {
+    //   const dynamicData = generateDynamicData(object);
+
+    //   // Get the highest CPU temperature
+    //   const latestCpuTemperature = Math.max(
+    //     ...dynamicData.cpuData.map((data) => data[1])
+    //   );
+
+    //   console.log(latestCpuTemperature);
+
+    //   if (latestCpuTemperature > params.temperatureThreshold) {
+    //     object.traverse((child) => {
+    //       if (child.isMesh) {
+    //         child.material.color.set(0xff0000); // Red color
+    //       }
+    //     });
+
+    //     const message = `The temperature of ${
+    //       object.name || "this object"
+    //     } is high: ${latestCpuTemperature}°C.`;
+
+    //     if ("speechSynthesis" in window) {
+    //       const speech = new SpeechSynthesisUtterance(message);
+    //       speech.rate = 1;
+    //       speech.pitch = 1;
+    //       speech.volume = 1;
+    //       speechSynthesis.speak(speech);
+    //     } else {
+    //       console.log("Speech synthesis is not supported in this browser.");
+    //     }
+    //   }
+    // };
+
     const checkTemperatureAndUpdateColor = (object) => {
-      const dynamicData = generateDynamicData(object);
+      const temperature = generateDynamicTemperature();
 
-      // Get the highest CPU temperature
-      const latestCpuTemperature = Math.max(
-        ...dynamicData.cpuData.map((data) => data[1])
-      );
+      // console.log(
+      //   `Temperature for ${object.name || "this object"}: ${temperature}°C`
+      // );
 
-      console.log(latestCpuTemperature);
-
-      if (latestCpuTemperature > params.temperatureThreshold) {
+      if (temperature > 10) {
+        // Adjusted the temperature threshold to 30°C
+        // Change object color to red
         object.traverse((child) => {
           if (child.isMesh) {
             child.material.color.set(0xff0000); // Red color
           }
         });
 
+        // Announce the temperature is high
         const message = `The temperature of ${
           object.name || "this object"
-        } is high: ${latestCpuTemperature}°C.`;
+        } is high: ${temperature}°C.`;
 
+        // Check if the browser supports speech synthesis
         if ("speechSynthesis" in window) {
           const speech = new SpeechSynthesisUtterance(message);
-          speech.rate = 1;
-          speech.pitch = 1;
-          speech.volume = 1;
+
+          // Set voice parameters if necessary
+          speech.rate = 1; // Speed of the speech
+          speech.pitch = 1; // Pitch of the voice
+          speech.volume = 1; // Volume of the speech
+
           speechSynthesis.speak(speech);
+
+          console.log(message);
         } else {
           console.log("Speech synthesis is not supported in this browser.");
         }
+      } else {
+        // Reset object color to its original
+        object.traverse((child) => {
+          if (child.isMesh) {
+            child.material.color.set(0xffffff); // Original color (white)
+          }
+        });
       }
     };
 
