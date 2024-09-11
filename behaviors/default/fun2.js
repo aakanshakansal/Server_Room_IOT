@@ -364,7 +364,6 @@ class FunPawn extends PawnBehavior {
     videoMesh.position.set(0, 1, 0); // Position the plane in the scene
     videoMesh.name = "videoMesh"; // Name the video mesh for reference
     trm.scene.add(videoMesh);
-
     // Control Overlay
     const controlContainer = document.createElement("div");
     controlContainer.style.position = "absolute";
