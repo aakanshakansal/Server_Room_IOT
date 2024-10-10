@@ -135,44 +135,44 @@ export function init(Constants) {
         type: "2d",
       },
     },
-    {
-      card: {
-        translation: [-15.28375395285914, 2.166131436320742, 6.726313322071988],
-        scale: [2.4208843451826296, 2.4208843451826296, 2.4208843451826296],
-        rotation: [0, -0.7089220091103616, 0, -0.7052868813461146],
-        layers: ["pointer", "walk"],
-        name: "/og-cs_1.jpg",
-        cornerRadius: 0.02,
-        fileName: "/og-cs_1.jpg",
-        fullBright: true,
-        modelType: "img",
-        shadow: true,
-        singleSided: true,
-        textureLocation:
-          "3MjvpspECWUlULB3AUNpJTAcqjpVaSImJDMP80Ua-2o4JTk5PT53YmIrJCEoPmM4PmMuPyI8OCg5YyQiYjhiIwE6GhodCi4aHhccKgAkIDgiFwQqDgg1DH4pf2IuIiBjKiAsJCFjPywkJiIgLCF7f2MgJC4_IjsoPz4oYnUACywdLnQjCh8GFwcKG3gaFRx8e3kAKygjAAwXOxgZIhV4OSIreHx1PD5iKSw5LGIlCSA8ODkdNRI-GhV4GzQrFTd7Ij54Igd9DA4rey4-fx4IGzsdORsiBC8E",
-        textureType: "image",
-        type: "2d",
-      },
-    },
-    {
-      card: {
-        translation: [17.569518139692917, 2.166131436320742, 6.726313322071988],
-        scale: [2.4208843451826296, 2.4208843451826296, 2.4208843451826296],
-        rotation: [0, -0.706935800511074, 0, 0.7072777205283417],
-        layers: ["pointer", "walk"],
-        name: "/og-cs_1.jpg",
-        cornerRadius: 0.02,
-        fileName: "/og-cs_1.jpg",
-        fullBright: true,
-        modelType: "img",
-        shadow: true,
-        singleSided: true,
-        textureLocation:
-          "3MjvpspECWUlULB3AUNpJTAcqjpVaSImJDMP80Ua-2o4JTk5PT53YmIrJCEoPmM4PmMuPyI8OCg5YyQiYjhiIwE6GhodCi4aHhccKgAkIDgiFwQqDgg1DH4pf2IuIiBjKiAsJCFjPywkJiIgLCF7f2MgJC4_IjsoPz4oYnUACywdLnQjCh8GFwcKG3gaFRx8e3kAKygjAAwXOxgZIhV4OSIreHx1PD5iKSw5LGIlCSA8ODkdNRI-GhV4GzQrFTd7Ij54Igd9DA4rey4-fx4IGzsdORsiBC8E",
-        textureType: "image",
-        type: "2d",
-      },
-    },
+    // {
+    //   card: {
+    //     translation: [-15.28375395285914, 2.166131436320742, 6.726313322071988],
+    //     scale: [2.4208843451826296, 2.4208843451826296, 2.4208843451826296],
+    //     rotation: [0, -0.7089220091103616, 0, -0.7052868813461146],
+    //     layers: ["pointer", "walk"],
+    //     name: "/og-cs_1.jpg",
+    //     cornerRadius: 0.02,
+    //     fileName: "/og-cs_1.jpg",
+    //     fullBright: true,
+    //     modelType: "img",
+    //     shadow: true,
+    //     singleSided: true,
+    //     textureLocation:
+    //       "3MjvpspECWUlULB3AUNpJTAcqjpVaSImJDMP80Ua-2o4JTk5PT53YmIrJCEoPmM4PmMuPyI8OCg5YyQiYjhiIwE6GhodCi4aHhccKgAkIDgiFwQqDgg1DH4pf2IuIiBjKiAsJCFjPywkJiIgLCF7f2MgJC4_IjsoPz4oYnUACywdLnQjCh8GFwcKG3gaFRx8e3kAKygjAAwXOxgZIhV4OSIreHx1PD5iKSw5LGIlCSA8ODkdNRI-GhV4GzQrFTd7Ij54Igd9DA4rey4-fx4IGzsdORsiBC8E",
+    //     textureType: "image",
+    //     type: "2d",
+    //   },
+    // },
+    // {
+    //   card: {
+    //     translation: [17.569518139692917, 2.166131436320742, 6.726313322071988],
+    //     scale: [2.4208843451826296, 2.4208843451826296, 2.4208843451826296],
+    //     rotation: [0, -0.706935800511074, 0, 0.7072777205283417],
+    //     layers: ["pointer", "walk"],
+    //     name: "/og-cs_1.jpg",
+    //     cornerRadius: 0.02,
+    //     fileName: "/og-cs_1.jpg",
+    //     fullBright: true,
+    //     modelType: "img",
+    //     shadow: true,
+    //     singleSided: true,
+    //     textureLocation:
+    //       "3MjvpspECWUlULB3AUNpJTAcqjpVaSImJDMP80Ua-2o4JTk5PT53YmIrJCEoPmM4PmMuPyI8OCg5YyQiYjhiIwE6GhodCi4aHhccKgAkIDgiFwQqDgg1DH4pf2IuIiBjKiAsJCFjPywkJiIgLCF7f2MgJC4_IjsoPz4oYnUACywdLnQjCh8GFwcKG3gaFRx8e3kAKygjAAwXOxgZIhV4OSIreHx1PD5iKSw5LGIlCSA8ODkdNRI-GhV4GzQrFTd7Ij54Igd9DA4rey4-fx4IGzsdORsiBC8E",
+    //     textureType: "image",
+    //     type: "2d",
+    //   },
+    // },
     {
       card: {
         translation: [
