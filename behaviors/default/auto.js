@@ -2046,7 +2046,7 @@ class LightPawn extends PawnBehavior {
               }
             });
           params = {
-            temperatureThreshold: 10, // Default temperature threshold
+            temperatureThreshold: 50, // Default temperature threshold
             checkTemperature: false, // Initially unchecked
           };
 
